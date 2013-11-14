@@ -9,7 +9,7 @@
 </head>
 <body>
 	<center>
-		<div class="ui-loading"></div>
+		<div class="ui-loading">sdf</div>
 	</center>
 </body>
 </html>

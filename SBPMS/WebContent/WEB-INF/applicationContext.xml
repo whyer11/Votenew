@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+  <!-- Connect dataSource and sessonFactory -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    <property name="url" value="jdbc:mysql://localhost:3306/vote"></property>
+    <property name="username" value="root"></property>
+    <property name="password" value="root"></property>
+    <property name="maxActive" value="100"></property>
+  </bean>
+
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.connection.autocommit">true</prop>
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+    <property name="mappingResources">
+      <list>
+        <value>com/sbpms/bean/PersonInfo.hbm.xml</value>
+        <value>com/sbpms/bean/VoteInfp.hbm.xml</value>
+      </list>
+    </property>
+  </bean>
+
+
+<bean id="PersonInfoDao" class="com.sbpms.dao.impl.PersonInfoDaoImpl" >
+  <property name="sessionFactory">
+    <ref bean="sessionFactory"></ref>
+  </property>
+</bean>
+
+<bean id="voteInfoDao" class="com.sbpms.dao.impl.voteInfoDaoImpl" >
+  <property name="sessionFactory">
+    <ref bean="sessionFactory"></ref>
+  </property>
+</bean>
+
+ <bean id="UserDao" class="com.sbpms.dao.impl.UserDaoImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"></ref>
+    </property>
+  </bean>
+
+
+
+  <!-- IOC DAOs -->
+  <!-- 向candidate_display_service注入 Dao -->
+  
+<bean id="candidate_display_service" class="com.sbpms.service.impl.candidate_display_serviceImpl" >
+<property name="personInfoDao" ref="PersonInfoDao"></property>
+</bean>
+
+
+ <bean id="UserService" class="com.sbpms.service.impl.UserServiceImpl">
+    <property name="userDao" ref="UserDao"></property>
+ </bean>
+ 
+ <!-- Dao  for  Votes -->
+<bean id="votes_Service" class="com.sbpms.service.impl.votesServiceImpl" >
+<property name="voteinfoDao" ref="voteInfoDao"></property>
+</bean>
+
+
+  <!-- IOC Actions -->
+  <!-- Action  for  candidate_display_action -->
+  <bean id="candidate_display_action" class="com.sbpms.action.candidate_display_action">
+    <property name="service" ref="candidate_display_service" ></property>
+    <property name="VotesService" ref="votes_Service" ></property>
+  </bean>
+  
+  <!-- Action for users -->
+  <bean id="ManageUserAction" class="com.sbpms.action.ManageUserAction"
+    scope="prototype">
+    <property name="service" ref="UserService"></property>
+  </bean>
+</beans>

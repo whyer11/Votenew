@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="init" basedir="." name="SBPMS">
+
+    <!-- properies -->
+    <!--Used to publish-->
+    <property name="tomcat.home" value="D:\Program Files\Apache Software Foundation\Tomcat 6.0" />
+    <property name="WebContent.dir" value="WebContent" />
+    <property name="src.dir" value="src" />
+    <property name="classes.dir" value="temp/classes" />
+    <property name="lib.dir" value="WebContent/WEB-INF/lib" />
+    <property name="temp.dir" value="temp" />
+    <!--used to create database and tables-->
+    <property name="driver" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://localhost:3306/" />
+    <property name="username" value="root" />
+    <property name="password" value="root" />
+    <property name="database.sql" value="database.sql" />
+
+    <!-- define classpath -->
+    <path id="ssh-classpath">
+        <fileset file="${lib.dir}/*.jar" />
+    </path>
+
+    <!-- init task -->
+    <target name="init">
+        <echo message="make dir of temp" />
+        <mkdir dir="${temp.dir}" />
+    </target>
+
+    <!-- compile -->
+    <target name="compile" depends="init" description="compile the source files">
+        <echo message="compile the javas to classes" />
+        <mkdir dir="${classes.dir}" />
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" target="1.6" encoding="utf8">
+            <classpath refid="ssh-classpath" />
+        </javac>
+    </target>
+
+    <!--war package -->
+
+    <target name="package" depends="compile" description="package this project in to a war">
+        <echo message="copy files to classes and package project to war" />
+        <copy todir="${classes.dir}" preservelastmodified="true">
+            <fileset dir="${src.dir}">
+                <include name="*.xml" />
+                <include name="*.properties" />
+            </fileset>
+        </copy>
+        <copy todir="${classes.dir}/com/sbpms/bean" preservelastmodified="true">
+            <fileset dir="${src.dir}/com/sbpms/bean/">
+                <include name="*.xml" />
+            </fileset>
+        </copy>
+        <war warfile="${temp.dir}/${ant.project.name}.war" webxml="${WebContent.dir}/WEB-INF/web.xml">
+            <lib dir="${lib.dir}">
+                <exclude name="catalina-ant.jar" />
+            </lib>
+            <classes dir="${classes.dir}" />
+            <fileset dir="${WebContent.dir}" />
+        </war>
+    </target>
+
+    <!--deploy war to tomcat-->
+    <target name="deploy" depends="package" description="copy this war to tomcat wabapps">
+        <echo message="deploy war to tomcat" />
+        <copy file="${temp.dir}/${ant.project.name}.war" todir="${tomcat.home}/webapps" />
+    </target>
+
+    <!--deploy war to tomcat without package-->
+    <target name="deploy with out package" description="copy this war to tomcat wabapps">
+        <echo message="deploy war to tomcat without package" level="warning" />
+        <copy file="${temp.dir}/${ant.project.name}.war" todir="${tomcat.home}/webapps" />
+    </target>
+
+    <!-- remove war from tomcat-->
+    <target name="removeWar" description="remove the war in wabapps from tomcat">
+        <echo message="remove the war from tomcat" level="warning" />
+        <delete dir="${tomcat.home}/webapps/${ant.project.name}">
+        </delete>
+        <delete file="${tomcat.home}/webapps/${ant.project.name}.war">
+        </delete>
+    </target>
+
+    <!--clean temp -->
+    <target name="cleanTemp" description="delete the temp">
+        <echo message="clean the temp folder" />
+        <delete dir="${temp.dir}">
+        </delete>
+    </target>
+
+    <!--clean classes -->
+    <target name="cleanClasses" description="delete the classes">
+        <echo message="clean the classes folder" />
+        <delete dir="${classes.dir}">
+        </delete>
+    </target>
+
+    <!--start tomcat-->
+    <target name="startTomcat" description="start tomcat and publish the project">
+        <echo message="start tomcat" />
+        <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+            <jvmarg value="-Dcatalina.home=${tomcat.home}" />
+        </java>
+    </target>
+
+    <!--stop tomcat -->
+    <target name="stopTomcat" description="stop tomcat">
+        <echo message="stop tomcat" />
+        <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+            <jvmarg value="-Dcatalina.home=${tomcat.home}" />
+            <arg line="stop" />
+        </java>
+    </target>
+
+    <!-- create database-->
+    <target name="createDb" description="create database">
+        <echo message="create database" />
+        <sql driver="${driver}" url="${url}" userid="${username}" password="${password}" src="${database.sql}">
+            <classpath>
+                <pathelement location="${lib.dir}/mysql-connector-java-3.1.12-bin.jar" />
+            </classpath>
+        </sql>
+    </target>
+
+    <!-- publish project-->
+    <target name="publish" depends="createDb,deploy,cleanTemp,startTomcat">
+    </target>
+
+    <!-- Republish -->
+    <target name="republish" depends="stopTomcat,cleanTemp,removeWar,deploy,cleanTemp,startTomcat">
+    </target>
+</project>

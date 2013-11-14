@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <constant name="struts.custom.i18n.resources" value="message" />
+  <!--1Common Action -->
+  <package name="SBPM" extends="json-default">
+    <action name="login" class="ManageUserAction" method="login">
+      <result name="input">/WEB-PAGE/Login.jsp</result>
+      <result name="SUP">/WEB-PAGE/SUP-PAGES/Homepage_SUP.jsp</result>
+      <result name="SMM">/WEB-PAGE/SMM-PAGES/Homepage_SMM.jsp</result>
+      <result name="SMS">/WEB-PAGE/SMS-PAGES/Homepage_SMS.jsp</result>
+      <result name="MS">/WEB-PAGE/MS-PAGES/Homepage_MS.jsp</result>
+      <result name="SS">/WEB-PAGE/SS-PAGES/Homepage_SS.jsp</result>
+    </action>
+ 
+    <action  name="index"  class="candidate_display_action" method="candidate_display">
+      <result name="success">/WEB-PAGE/index.jsp</result>
+    </action>
+      
+    <action  name="validatee" class="candidate_display_action" method="validatee" >
+            <result type="json">
+				<param name="root">hasVote</param>
+			</result>
+    </action>
+    
+    
+    <action  name="vote"  class="candidate_display_action" method="vote">
+         <result name="success">/WEB-PAGE/Login.jsp</result>
+    </action>
+
+    
+    
+    <action name="logout" class="ManageUserAction" method="logout">
+      <result name="success">/WEB-PAGE/Login.jsp</result>
+      <result name="input">/WEB-PAGE/Login.jsp</result>
+    </action>
+    
+    <action name="changePassword" class="ManageUserAction"
+      method="changePassword">
+      <result name="success">/WEB-PAGE/ChangePassword.jsp</result>
+      <result name="input">/WEB-PAGE/ChangePassword.jsp</result>
+    </action>
+    
+    <!-- 2ChangeLanguage -->
+    <!-- 3Request operation -->
+    <!-- 4Change url -->
+  </package>
+ 
+  
+</struts>

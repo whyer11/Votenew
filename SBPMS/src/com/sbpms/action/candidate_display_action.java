@@ -174,6 +174,16 @@ public class candidate_display_action extends ActionSupport  {
 		return  "success";
 	}
 	
+	public  String validateByIp(){
+		
+		if(VotesService.validateByIp(this.clientIp) == true){
+			this.hasVote=false;
+		}
+		else{
+			this.hasVote=true;
+			}
+			return "success";
+	}
 	public  String   validatee(){
 		if(VotesService.validatee(this.voter_xuehao) == true){
 			this.hasVote=false;

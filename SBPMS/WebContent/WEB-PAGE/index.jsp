@@ -194,10 +194,14 @@
 			});
 			$('#voteByTeachers').click(function() {
 				var UserIP = ILData[0];
-				$.POST('', {
-					IP : UserIP
+				$.post('voteByIp.json', {
+					clientIp : UserIP
 				}, function(data) {
-
+                      if(data){
+                    	  alert("亲~今天已经投过票了哦，请明天再来");
+                      }else{
+                    	  alert('亲~投票成功，明天可以再来投票哦，欢迎持续关注');
+                      }
 				});
 			});
 		});

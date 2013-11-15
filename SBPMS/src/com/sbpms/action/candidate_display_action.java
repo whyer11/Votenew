@@ -200,7 +200,7 @@ public class candidate_display_action extends ActionSupport  {
 			}
 			return "success";
 	}
-	public  String   validatee(){
+	public String   validatee(){
 		int Date = new Date().getDay(); 
 		if(VotesService.validatee(Date,this.voter_xuehao) == true){
 			

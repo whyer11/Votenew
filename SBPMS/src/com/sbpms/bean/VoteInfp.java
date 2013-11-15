@@ -1,5 +1,7 @@
 package com.sbpms.bean;
 
+import java.sql.Date;
+
 /**
  * VoteInfp entity. @author MyEclipse Persistence Tools
  */
@@ -7,7 +9,16 @@ package com.sbpms.bean;
 public class VoteInfp implements java.io.Serializable {
 
 	// Fields
-    private String voter_ip;
+	private  String  vote_time;
+	public String getVote_time() {
+		return vote_time;
+	}
+
+	public void setVote_time(String vote_time) {
+		this.vote_time = vote_time;
+	}
+
+	private String voter_ip;
 	public String getVoter_ip() {
 		return voter_ip;
 	}

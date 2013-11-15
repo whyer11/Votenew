@@ -1,5 +1,6 @@
 package com.sbpms.action;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -161,11 +162,15 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public String  voteByIp(){
+		Date now = new Date(); 
+		System.out.println(now);
+		String  Date=now.toString().substring(1, 4);
 		String  ClientIp=this.getClientIp();
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
 		voteInfp.setVoterPhone(this.studentPhone);
 		voteInfp.setVoter_ip(ClientIp);
+	    voteInfp.setVote_time(Date);
 		voteInfp.setvoter_xuehao(this.studentID);
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
@@ -175,8 +180,10 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String validateByIp(){
-		
-		if(VotesService.validateByIp(this.clientIp) == true){
+		Date now = new Date(); 
+		System.out.println(now);
+		String  Date=now.toString().substring(1, 4);
+		if(VotesService.validateByIp( Date,this.clientIp) == true){
 			this.hasVote=false;
 		}
 		else{

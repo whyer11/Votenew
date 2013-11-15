@@ -22,5 +22,8 @@
          <property name="voter_ip" type="java.lang.Integer">
             <column name="voter_ip" />
         </property>
+         <property name="vote_time" type="java.lang.String">
+            <column name="vote_time" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -221,10 +221,14 @@
 			});
 			$('#voteByTeachers').click(function() {
 				var UserIP = ILData[0];
-				$.POST('', {
-					IP : UserIP
+				$.post('voteByIp.json', {
+					clientIp : UserIP
 				}, function(data) {
-
+					if(data){
+						alert('今天你已经投过票的');
+					}else{
+						alert('投票成功');
+					}
 				});
 			});
 		});

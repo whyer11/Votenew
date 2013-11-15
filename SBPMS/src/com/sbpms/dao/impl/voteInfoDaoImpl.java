@@ -41,8 +41,8 @@ public class voteInfoDaoImpl extends HibernateDaoSupport  implements voteInfoDao
 	}
 
 	@Override
-	public boolean select(String test) {
-		String   sqlString="from  VoteInfp  where voter_xuehao=?";
+	public boolean select(int  Date,String test) {
+		String   sqlString="from  VoteInfp  where voter_xuehao=? and vote_time"+Date;
 		String  voter_xuehao=test;
 		 List<VoteInfp>  votesList=this.getHibernateTemplate().find(sqlString, voter_xuehao);
 		 if(votesList.size() != 0){

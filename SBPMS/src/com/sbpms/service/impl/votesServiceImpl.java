@@ -35,8 +35,8 @@ public class votesServiceImpl  implements  votesService {
 	}
 
 	@Override
-	public boolean validatee(String test) {
-		return  voteinfoDao.select(test);
+	public boolean validatee(int date,String test) {
+		return  voteinfoDao.select(date,test);
 	}
 
 	

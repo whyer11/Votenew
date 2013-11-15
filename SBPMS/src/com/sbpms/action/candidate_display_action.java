@@ -168,6 +168,7 @@ public class candidate_display_action extends ActionSupport  {
 		}
 		else{
 			this.hasVote=true;
+			return  "success";
 			}
 		
 		String  ClientIp=this.getClientIp();
@@ -200,7 +201,9 @@ public class candidate_display_action extends ActionSupport  {
 			return "success";
 	}
 	public  String   validatee(){
-		if(VotesService.validatee(this.voter_xuehao) == true){
+		int Date = new Date().getDay(); 
+		if(VotesService.validatee(Date,this.voter_xuehao) == true){
+			
 			this.hasVote=false;
 		}
 		else{

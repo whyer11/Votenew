@@ -10,7 +10,7 @@ public interface voteInfoDao {
    public  List<VoteInfp> select(PersonInfo  personInfo);
    public  boolean  select(VoteInfp voteInfp);
    public  void   insert(VoteInfp voteInfp);
-   public boolean select(String test);
+   public boolean select(int date, String test);
    public boolean selectByIp(int date, String clientIp);
 
 

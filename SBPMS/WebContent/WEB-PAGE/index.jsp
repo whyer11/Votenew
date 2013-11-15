@@ -94,19 +94,18 @@
 					<s:iterator value="personInfoList">
 						<div class="col-sm-6 col-md-4">
 							<div class="thumbnail">
-								<img src="images/background.jpg">
+								<img src="images/<s:property value="pic"/>.jpg">
 
 								<div class="caption">
 									<h3>
 										<s:property value="name" />
 									</h3>
-
 									<p>
-										年龄：
-										<s:property value="aget" />
+										编号：
+										<s:property value="id" />
 									</p>
 									<p>
-										爱好：
+										所属单位：
 										<s:property value="hoppy" />
 									</p>
 									<p>
@@ -117,8 +116,8 @@
 									<div class="input-group">
 										<span class="input-group-addon"> <input type="checkbox"
 											name="candidaters" class="checkbox"
-											value=<s:property value="id"/>>
-										</span> <a class="btn btn1">选择</a> <a class="btn pull-right">查看详细</a>
+											value=<s:property value="id"/> disabled="on">
+										</span> <a class="btn btn1">选择</a> <a class="pull-right checkForDetail">查看详细</a>
 									</div>
 								</div>
 							</div>
@@ -163,10 +162,32 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
+					<div class="modal fade" id="myModal-1" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">确认投票</h4>
+								</div>
+								<div class="modal-body">
+									<p></p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">我还是再选选吧。</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+						data-target="#myModal" data-dismiss="modal">我确定投票！</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
 				</div>
 				<div class="vote-btn">
-					<a class="btn btn-primary btn-lg" data-toggle="modal"
-						data-target="#myModal">学生投票</a> <a class="btn btn-primary btn-lg"
+					<a class="btn btn-primary btn-lg"  id="studentVote">学生投票</a> <a class="btn btn-primary btn-lg"
 						id="voteByTeachers">教职工投票</a>
 				</div>
 			</form>
@@ -192,16 +213,18 @@
 					alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
 				}
 			});
+			$('#studentVote').click(function(){
+				if(count!=totalNum){
+					$('#myModal-1 .modal-body p').text('亲，你还有'+(totalNum-count)+'票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
+					$('#myModal-1').modal();
+				}
+			});
 			$('#voteByTeachers').click(function() {
 				var UserIP = ILData[0];
-				$.post('voteByIp.json', {
-					clientIp : UserIP
+				$.POST('', {
+					IP : UserIP
 				}, function(data) {
-                      if(data){
-                    	  alert("亲~今天已经投过票了哦，请明天再来");
-                      }else{
-                    	  alert('亲~投票成功，明天可以再来投票哦，欢迎持续关注');
-                      }
+
 				});
 			});
 		});

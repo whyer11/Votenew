@@ -26,6 +26,10 @@ body {
 .vote-btn{
 	padding:0 117px;
 }
+.checkForDetail{
+	line-height: 34px;
+	cursor:pointer;
+}
 /** begin ---ui-form.css---*/
 /*
  * @name: ui-form

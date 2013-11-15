@@ -27,6 +27,13 @@
     </action>
     
     
+    <action  name="voteByIp" class="candidate_display_action" method="voteByIp" >
+            <result type="json">
+				<param name="root">hasVote</param>
+			</result>
+    </action>
+    
+    
     <action  name="vote"  class="candidate_display_action" method="vote">
          <result name="success">/WEB-PAGE/Login.jsp</result>
     </action>

@@ -28,6 +28,9 @@
          <property name="votes" type="java.lang.Integer">
             <column name="votes" />
         </property>
+         <property name="affiliation" type="java.lang.String">
+            <column name="affiliation" />
+        </property>
         
     </class>
 </hibernate-mapping>

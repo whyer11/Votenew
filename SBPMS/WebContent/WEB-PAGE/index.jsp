@@ -116,7 +116,7 @@
 									<div class="input-group">
 										<span class="input-group-addon"> <input type="checkbox"
 											name="candidaters" class="checkbox"
-											value=<s:property value="id"/> disabled="on">
+											value=<s:property value="id"/>>
 										</span> <a class="btn btn1">选择</a> <a class="pull-right checkForDetail">查看详细</a>
 									</div>
 								</div>

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0 user-scalable=no'>
 <title>最美中北人投票</title>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -75,7 +76,7 @@
 		<div class="col-lg-8">
 			<h1>南京师范大学中北学院</h1>
 			<div class="jumbotron">
-				<h1>中北最美人投票活动</h1>
+				<h1>最美中北人投票活动</h1>
 
 				<p>本次活动由南京师范大学中北学院主办</p>
 
@@ -123,11 +124,6 @@
 							</div>
 						</div>
 					</s:iterator>
-
-
-					<a class="btn btn-primary btn-lg" data-toggle="modal"
-						data-target="#myModal">学生投票</a> <a class="btn btn-primary btn-lg"
-						id="voteByTeachers">教职工投票</a>
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -167,6 +163,11 @@
 						<!-- /.modal-dialog -->
 					</div>
 					<!-- /.modal -->
+				</div>
+				<div class="vote-btn">
+					<a class="btn btn-primary btn-lg" data-toggle="modal"
+						data-target="#myModal">学生投票</a> <a class="btn btn-primary btn-lg"
+						id="voteByTeachers">教职工投票</a>
 				</div>
 			</form>
 		</div>

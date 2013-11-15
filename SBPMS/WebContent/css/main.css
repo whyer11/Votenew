@@ -20,7 +20,12 @@ body {
     border-top-left-radius: 0;
     background: #eeeeee;
 }
-
+.vote-btn a{
+	margin:0 100px 0 100px;
+}
+.vote-btn{
+	padding:0 117px;
+}
 /** begin ---ui-form.css---*/
 /*
  * @name: ui-form

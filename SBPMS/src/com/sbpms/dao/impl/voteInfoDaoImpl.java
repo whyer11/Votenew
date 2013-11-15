@@ -50,4 +50,14 @@ public class voteInfoDaoImpl extends HibernateDaoSupport  implements voteInfoDao
 		 }
 		return true;
 	}
+
+	@Override
+	public boolean selectByIp(String clientIp) {
+		String   sqlString="from  VoteInfp  where voter_ip=?";
+		 List<VoteInfp>  votesList=this.getHibernateTemplate().find(sqlString, clientIp);
+		 if(votesList.size() != 0){
+			 return  false;
+		 }
+		return true;
+	}
 }

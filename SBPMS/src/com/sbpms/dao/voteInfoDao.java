@@ -11,6 +11,8 @@ public interface voteInfoDao {
    public  boolean  select(VoteInfp voteInfp);
    public  void   insert(VoteInfp voteInfp);
    public boolean select(String test);
+   public boolean selectByIp(String clientIp);
+
 
 
 }

@@ -7,7 +7,17 @@ package com.sbpms.bean;
 public class PersonInfo implements java.io.Serializable {
 
 	// Fields
-    private  Integer  votes;
+	
+	private  String  affiliation;
+    public String getAffiliation() {
+		return affiliation;
+	}
+
+	public void setAffiliation(String affiliation) {
+		this.affiliation = affiliation;
+	}
+
+	private  Integer  votes;
 	public Integer getVotes() {
 		return votes;
 	}

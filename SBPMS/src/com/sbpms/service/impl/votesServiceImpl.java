@@ -39,4 +39,9 @@ public class votesServiceImpl  implements  votesService {
 		return  voteinfoDao.select(test);
 	}
 
+	@Override
+	public boolean validateByIp(String clientIp) {
+		return  voteinfoDao.selectByIp(clientIp);
+	}
+
 }

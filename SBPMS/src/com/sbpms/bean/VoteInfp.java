@@ -7,6 +7,14 @@ package com.sbpms.bean;
 public class VoteInfp implements java.io.Serializable {
 
 	// Fields
+    private String voter_ip;
+	public String getVoter_ip() {
+		return voter_ip;
+	}
+
+	public void setVoter_ip(String voter_ip) {
+		this.voter_ip = voter_ip;
+	}
 
 	private Integer id;
 	private String voter_xuehao;

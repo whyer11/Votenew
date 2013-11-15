@@ -11,6 +11,14 @@ import com.sbpms.service.candidate_display_service;
 import com.sbpms.service.votesService;
 
 public class candidate_display_action extends ActionSupport  {
+	private  String   clientIp;
+	public String getClientIp() {
+		return clientIp;
+	}
+	public void setClientIp(String clientIp) {
+		this.clientIp = clientIp;
+	}
+
 	private  String  candidaters;
 	private  String   studentID;
 	public String getStudentID() {
@@ -150,6 +158,20 @@ public class candidate_display_action extends ActionSupport  {
 		}
 		
 		return "success";
+	}
+	
+	public String  voteByIp(){
+		String  ClientIp=this.getClientIp();
+		String Can=this.getCandidaters();
+	    String Candidaters[]=this.getCandidaters().split(", ");
+		voteInfp.setVoterPhone(this.studentPhone);
+		voteInfp.setVoter_ip(ClientIp);
+		voteInfp.setvoter_xuehao(this.studentID);
+		for(int i=0; i < Candidaters.length;i++){
+			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
+			VotesService.inserte(voteInfp);	
+		}
+		return  "success";
 	}
 	
 	public  String   validatee(){

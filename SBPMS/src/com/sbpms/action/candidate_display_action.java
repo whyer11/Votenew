@@ -160,17 +160,27 @@ public class candidate_display_action extends ActionSupport  {
 		
 		return "success";
 	}
-	
 	public String  voteByIp(){
 		int Date = new Date().getDay(); 
 		System.out.println(Date);
+		if(VotesService.validateByIp(Date,this.clientIp) == true){
+			this.hasVote=false;
+		}
+		else{
+			this.hasVote=true;
+			}
+		
 		String  ClientIp=this.getClientIp();
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
+	    if(this.studentPhone != null){
 		voteInfp.setVoterPhone(this.studentPhone);
+	    }
 		voteInfp.setVoter_ip(ClientIp);
 	    voteInfp.setVote_time(Date);
+	    if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
+	    }
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	

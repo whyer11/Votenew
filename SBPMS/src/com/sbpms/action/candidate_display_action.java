@@ -162,9 +162,8 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public String  voteByIp(){
-		Date now = new Date(); 
-		System.out.println(now);
-		String  Date=now.toString().substring(1, 4);
+		int Date = new Date().getDay(); 
+		System.out.println(Date);
 		String  ClientIp=this.getClientIp();
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
@@ -180,9 +179,8 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String validateByIp(){
-		Date now = new Date(); 
-		System.out.println(now);
-		String  Date=now.toString().substring(1, 4);
+		int Date = new Date().getDay(); 
+		System.out.println(Date);
 		if(VotesService.validateByIp( Date,this.clientIp) == true){
 			this.hasVote=false;
 		}

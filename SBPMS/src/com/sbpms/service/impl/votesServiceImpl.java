@@ -43,7 +43,7 @@ public class votesServiceImpl  implements  votesService {
 	
 
 	@Override
-	public boolean validateByIp(String Date, String clientIp) {
+	public boolean validateByIp(int Date, String clientIp) {
 		return  voteinfoDao.selectByIp(Date,clientIp);
 	}
 

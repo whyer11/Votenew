@@ -115,11 +115,11 @@
 									</p>
 
 									<div class="input-group">
-										<span class="input-group-addon"> <input type="checkbox"
-											name="candidaters" class="checkbox"
-											value=<s:property value="id"/>>
-										</span> <a class="btn btn1">选择</a> <a
-											class="pull-right checkForDetail">查看详细</a>
+										<span class="input-group-addon"> 
+											<input type="checkbox" name="candidaters" class="checkbox" value=<s:property value="id"/>>
+										</span> 
+										<a class="btn btn1">选择</a> 
+										<a class="pull-right checkForDetail">查看详细</a>
 									</div>
 								</div>
 							</div>
@@ -226,12 +226,13 @@
 		$(function() {
 			var count = 0;
 			var totalNum = 3;
+			var checkbox = $('input[name="candidaters"]');
 			var sureToVote = function(model){
 				$(''+model+' .modal-body p').text('亲，你还有'+ (totalNum - count)+ '票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
 				$(''+model+'').modal();
-			}
+			};
 			$('.caption .btn').click(function() {
-				if ($(this).prev().children().is(":checked")) {
+				if ($(this).prev().children().is(':checked')) {
 					$(this).prev().children().removeAttr('checked', 'checked');
 					$(this).text('选择');
 					count--;
@@ -243,6 +244,23 @@
 					console.log('count=' + count);
 				} else {
 					alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
+				}
+			});
+			checkbox.click(function(){
+				if($(this).parent().next().text()=='选择'){
+					$(this).parent().next().text('取消选择');
+					count++;
+					if(count>=totalNum){
+						$(this).removeAttr('checked','checked');
+						count--;
+						console.log('count=' + count);
+						alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
+					}
+					console.log('count=' + count);
+				}else{
+					$(this).parent().next().text('选择');
+					count--;
+					console.log('count=' + count);
 				}
 			});
 			$('#studentVote').click(function() {
@@ -281,7 +299,6 @@
 							}
 						});
 					});
-					
 				}
 			});
 		});

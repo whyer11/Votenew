@@ -49,7 +49,7 @@
 					},
 							function(data) {
 								commit(data == true ? data.message : '无法使用',
-										'该学号已投过票');
+										'此学号或者已在此计算机上投过票，请明天再投');
 							});
 				}
 			}, '{{display}}错误');

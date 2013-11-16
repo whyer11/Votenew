@@ -278,7 +278,7 @@
 				$("input[name='candidaters']").each(function() {
 					if ($(this).is(":checked")) {
 						candidaters[i] = $(this).val();
-						console.log(candidaters[i]);
+						console.log(candidaters);
 						i++;
 					}
 				});
@@ -290,7 +290,7 @@
 					$('#sureVoteByTeachers').click(function(){
 						$.post('voteByIp.json', {
 							clientIp : UserIP,
-							candidaters_teachers : candidaters
+							text : 'a'
 						}, function(data) {
 							if (data) {
 								alert('今天你已经投过票的');

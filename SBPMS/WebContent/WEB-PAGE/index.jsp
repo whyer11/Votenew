@@ -296,6 +296,7 @@
 						}, function(data) {
 							if (data) {
 								alert('今天你已经投过票的');
+								window.location.href=window.location.href;
 							} else {
 								alert('投票成功');
 							}

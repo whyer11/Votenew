@@ -290,7 +290,7 @@
 					$('#sureVoteByTeachers').click(function(){
 						$.post('voteByIp.json', {
 							clientIp : UserIP,
-							text : 'a'
+							test : 'a'
 						}, function(data) {
 							if (data) {
 								alert('今天你已经投过票的');

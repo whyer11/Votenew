@@ -9,7 +9,7 @@
 </head>
 <body>
 	<center>
-		<div class="ui-loading">sdf</div>
+		<div class="ui-loading">加载中。。。。。。。。。</div>
 	</center>
 </body>
 </html>

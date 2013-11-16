@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name='viewport' content='width=device-width, initial-scale=1.0 user-scalable=no'>
+<meta name='viewport'
+	content='width=device-width, initial-scale=1.0 user-scalable=no'>
 <title>最美中北人投票</title>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -74,7 +75,7 @@
 	<div class="row">
 		<div class="col-lg-2"></div>
 		<div class="col-lg-8">
-			<h1>南京师范大学中北学院</h1>
+			<div class="logo"></div>
 			<div class="jumbotron">
 				<h1>最美中北人投票活动</h1>
 
@@ -117,7 +118,8 @@
 										<span class="input-group-addon"> <input type="checkbox"
 											name="candidaters" class="checkbox"
 											value=<s:property value="id"/>>
-										</span> <a class="btn btn1">选择</a> <a class="pull-right checkForDetail">查看详细</a>
+										</span> <a class="btn btn1">选择</a> <a
+											class="pull-right checkForDetail">查看详细</a>
 									</div>
 								</div>
 							</div>
@@ -175,9 +177,35 @@
 									<p></p>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">我还是再选选吧。</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#myModal" data-dismiss="modal">我确定投票！</button>
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">我还是再选选吧。</button>
+									<button type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#myModal"
+										data-dismiss="modal">我确定投票！</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
+					<div class="modal fade" id="myModal-2" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">确认投票</h4>
+								</div>
+								<div class="modal-body">
+									<p></p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">我还是再选选吧。</button>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal" id="sureVoteByTeachers">我确定投票！</button>
 								</div>
 							</div>
 							<!-- /.modal-content -->
@@ -187,8 +215,8 @@
 					<!-- /.modal -->
 				</div>
 				<div class="vote-btn">
-					<a class="btn btn-primary btn-lg"  id="studentVote">学生投票</a> <a class="btn btn-primary btn-lg"
-						id="voteByTeachers">教职工投票</a>
+					<a class="btn btn-primary btn-lg" id="studentVote">学生投票</a> <a
+						class="btn btn-primary btn-lg" id="voteByTeachers">教职工投票</a>
 				</div>
 			</form>
 		</div>
@@ -198,6 +226,10 @@
 		$(function() {
 			var count = 0;
 			var totalNum = 3;
+			var sureToVote = function(model){
+				$(''+model+' .modal-body p').text('亲，你还有'+ (totalNum - count)+ '票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
+				$(''+model+'').modal();
+			}
 			$('.caption .btn').click(function() {
 				if ($(this).prev().children().is(":checked")) {
 					$(this).prev().children().removeAttr('checked', 'checked');
@@ -213,23 +245,44 @@
 					alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
 				}
 			});
-			$('#studentVote').click(function(){
-				if(count!=totalNum){
-					$('#myModal-1 .modal-body p').text('亲，你还有'+(totalNum-count)+'票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
-					$('#myModal-1').modal();
+			$('#studentVote').click(function() {
+				var model = "#myModal-1";
+				if(count==0){
+					alert("你有没有选择一个最美中北人，请选择后再投票");
+				}else if (count != totalNum) {
+					sureToVote(model);
 				}
 			});
 			$('#voteByTeachers').click(function() {
 				var UserIP = ILData[0];
-				$.post('voteByIp.json', {
-					clientIp : UserIP
-				}, function(data) {
-					if(data){
-						alert('今天你已经投过票的');
-					}else{
-						alert('投票成功');
+				var candidaters = new Array(totalNum);
+				var i = 0;
+				$("input[name='candidaters']").each(function() {
+					if ($(this).is(":checked")) {
+						candidaters[i] = $(this).val();
+						console.log(candidaters[i]);
+						i++;
 					}
 				});
+				if (count==0) {
+					alert("你有没有选择一个最美中北人，请选择后再投票");
+				}else{
+					var model = "#myModal-2";
+					sureToVote(model);
+					$('#sureVoteByTeachers').click(function(){
+						$.post('voteByIp.json', {
+							clientIp : UserIP,
+							candidaters : candidaters
+						}, function(data) {
+							if (data) {
+								alert('今天你已经投过票的');
+							} else {
+								alert('投票成功');
+							}
+						});
+					});
+					
+				}
 			});
 		});
 	</script>

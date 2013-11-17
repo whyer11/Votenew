@@ -66,7 +66,7 @@
 				element : '#studentPhone',
 				required : true,
 				rule : 'mobile'
-			})
+			});
 		});
 	})
 </script>
@@ -88,17 +88,19 @@
 				<p>投票时间：</p>
 				<p>2013年11月21日-11月25日</p>
 			</div>
-			<h3>入选美人</h3>
+			<a class="candidaters-head">
+				<img alt="" src="images/mingdan.png">
+			</a>
 
 			<form id="election" action="vote.html" method="POST">
 				<div class="row">
 					<s:iterator value="personInfoList">
-						<div class="col-sm-6 col-md-4">
+						<div class="col-sm-8 col-md-4">
 							<div class="thumbnail">
 								<img src="images/<s:property value="pic"/>.jpg">
 
 								<div class="caption">
-									<h3>
+									<h3 data-name=<s:property value="name" />>
 										<s:property value="name" />
 									</h3>
 									<p>
@@ -116,7 +118,7 @@
 
 									<div class="input-group">
 										<span class="input-group-addon"> 
-											<input type="checkbox" name="candidaters" class="checkbox" value=<s:property value="id"/>>
+											<input type="checkbox" name="candidaters" class="checkbox" value=<s:property value="id"/> style="display:none">
 										</span> 
 										<a class="btn btn1">选择</a> 
 										<a class="pull-right checkForDetail">查看详细</a>
@@ -227,47 +229,48 @@
 			var count = 0;
 			var totalNum = 3;
 			var checkbox = $('input[name="candidaters"]');
+			var candidatersName = new Array();
+			var q=0;
 			var sureToVote = function(model){
-				$(''+model+' .modal-body p').text('亲，你还有'+ (totalNum - count)+ '票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
+				$(''+model+' .modal-body').html('亲，你把宝贵的'+count+'票分别投给了'+'<strong>'+candidatersName.join()+'</strong>'+'你还有'+ (totalNum - count)+ '票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
 				$(''+model+'').modal();
 			};
 			$('.caption .btn').click(function() {
-				if ($(this).prev().children().is(':checked')) {
+				var name='';
+				name=$(this).parent().parent().find('h3').data('name').toString();
+				if ($(this).prev().children().is(':checked')) {		
+					candidatersName.splice(jQuery.inArray(name,candidatersName),1);
+					for(var i = 0;i<candidatersName.length;i++){
+						console.log(candidatersName[i]);
+					}
+					q--;
 					$(this).prev().children().removeAttr('checked', 'checked');
 					$(this).text('选择');
 					count--;
 					console.log('count=' + count);
+					console.log('q=' + q);
+					console.log('length='+candidatersName.length);
 				} else if (count < totalNum) {
+					
+					candidatersName[q] = name;	
+					console.log('candidatersName=' + candidatersName[q]);
+					q++;
 					$(this).prev().children().attr('checked', 'checked');
 					$(this).text('取消选择');
 					count++;
 					console.log('count=' + count);
+					console.log('q=' + q);
+					console.log('name=' +  name.toString());
+					console.log('length=' +  candidatersName.length);
 				} else {
 					alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
-				}
-			});
-			checkbox.click(function(){
-				if($(this).parent().next().text()=='选择'){
-					$(this).parent().next().text('取消选择');
-					count++;
-					if(count>=totalNum){
-						$(this).removeAttr('checked','checked');
-						count--;
-						console.log('count=' + count);
-						alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
-					}
-					console.log('count=' + count);
-				}else{
-					$(this).parent().next().text('选择');
-					count--;
-					console.log('count=' + count);
 				}
 			});
 			$('#studentVote').click(function() {
 				var model = "#myModal-1";
 				if(count==0){
 					alert("你有没有选择一个最美中北人，请选择后再投票");
-				}else if (count != totalNum) {
+				}else{
 					sureToVote(model);
 				}
 			});
@@ -278,7 +281,6 @@
 				$("input[name='candidaters']").each(function() {
 					if ($(this).is(":checked")) {
 						candidaters[i] = $(this).val();
-						
 						i++;
 					}
 				});

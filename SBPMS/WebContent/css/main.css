@@ -1,7 +1,7 @@
 body {
     padding-top: 20px;
     padding-bottom: 20px;
-    background-image: url("../images/sky_texture1989.jpg");
+    background-image: url("../images/background.png");
     background-attachment: fixed;
 }
 
@@ -19,6 +19,7 @@ body {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
     background: #eeeeee;
+    text-indent:-23px;
 }
 .vote-btn a{
 	margin:0 100px 0 100px;
@@ -31,10 +32,14 @@ body {
 	cursor:pointer;
 }
 .logo{
-	background-image:url("../images/Logo.png");
+	background-image:url("../images/Logo-w.png");
 	 width:372px;
 	 height:38px;
 	 margin-bottom:20px;
+}
+.candidaters-head{
+	display:block;
+	margin:0 0 20px;
 }
 /** begin ---ui-form.css---*/
 /*

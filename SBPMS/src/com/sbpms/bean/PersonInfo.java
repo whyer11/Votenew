@@ -7,7 +7,15 @@ package com.sbpms.bean;
 public class PersonInfo implements java.io.Serializable {
 
 	// Fields
-	
+	private  String  link;
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	private  String  affiliation;
     public String getAffiliation() {
 		return affiliation;

@@ -247,21 +247,13 @@
 					$(this).prev().children().removeAttr('checked', 'checked');
 					$(this).text('选择');
 					count--;
-					console.log('count=' + count);
-					console.log('q=' + q);
-					console.log('length='+candidatersName.length);
-				} else if (count < totalNum) {
-					
+				} else if (count < totalNum) {				
 					candidatersName[q] = name;	
 					console.log('candidatersName=' + candidatersName[q]);
 					q++;
 					$(this).prev().children().attr('checked', 'checked');
 					$(this).text('取消选择');
 					count++;
-					console.log('count=' + count);
-					console.log('q=' + q);
-					console.log('name=' +  name.toString());
-					console.log('length=' +  candidatersName.length);
 				} else {
 					alert('您已经选择了' + count + '个中北最美人,您可以重新选择或投票');
 				}

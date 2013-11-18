@@ -149,10 +149,12 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String  vote(){
+		Integer Date = new Date().getDay(); 
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
 		voteInfp.setVoterPhone(this.studentPhone);
 		voteInfp.setvoter_xuehao(this.studentID);
+		voteInfp.setVote_time(Date);
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	
@@ -161,7 +163,7 @@ public class candidate_display_action extends ActionSupport  {
 		return "success";
 	}
 	public String  voteByIp(){
-		int Date = new Date().getDay(); 
+		Integer Date = new Date().getDay(); 
 		System.out.println(Date);
 		if(VotesService.validateByIp(Date,this.clientIp) == true){
 			this.hasVote=false;
@@ -190,7 +192,7 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String validateByIp(){
-		int Date = new Date().getDay(); 
+		Integer Date = new Date().getDay(); 
 		System.out.println(Date);
 		if(VotesService.validateByIp( Date,this.clientIp) == true){
 			this.hasVote=false;
@@ -201,7 +203,7 @@ public class candidate_display_action extends ActionSupport  {
 			return "success";
 	}
 	public String   validatee(){
-		int Date = new Date().getDay(); 
+		Integer Date = new Date().getDay(); 
 		if(VotesService.validatee(Date,this.voter_xuehao) == true){
 			
 			this.hasVote=false;

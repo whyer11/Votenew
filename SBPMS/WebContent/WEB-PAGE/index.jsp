@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name='viewport'
-	content='width=device-width, initial-scale=1.0 user-scalable=no'>
+	<meta http-equiv="X-UA-Compatible" content="IE=9" />
 <title>最美中北人投票</title>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -19,6 +18,7 @@
 <link charset="utf-8" rel="stylesheet"
 	href="http://assets.alipay.com/al/alice.components.ui-button-orange-1.3-full.css" />
 <script language="JavaScript">
+
 	seajs.config({
 		alias : {
 			'$' : 'gallery/jquery/1.7.2/jquery',
@@ -72,11 +72,9 @@
 </script>
 </head>
 <body>
-	<div class="row">
-		<div class="col-lg-2"></div>
-		<div class="col-lg-8">
+		<div style="margin: 0 220px;">
 			<div class="logo"></div>
-			<div class="jumbotron">
+			<div class="jumbotron IE8yousonofbitch">
 				<h1>最美中北人投票活动</h1>
 
 				<p>本次活动由南京师范大学中北学院主办</p>
@@ -95,9 +93,9 @@
 			<form id="election" action="vote.html" method="POST">
 				<div class="row">
 					<s:iterator value="personInfoList">
-						<div class="col-sm-8 col-md-4">
-							<div class="thumbnail">
-								<img src="images/<s:property value="pic"/>.jpg">
+						<div class="col-sm-8 col-md-4" style="width:289px;height:384px; float:left">
+							<div class="thumbnail" style="width:260px;height:364px; float:left">
+								<img src="images/<s:property value="pic"/>.jpg" style="width:250px;height:156px">
 
 								<div class="caption">
 									<h3 data-name=<s:property value="name" />>
@@ -129,7 +127,7 @@
 					</s:iterator>
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
+						<div class="modal-dialog" style="width:600px;">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
@@ -168,7 +166,7 @@
 					<!-- /.modal -->
 					<div class="modal fade" id="myModal-1" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
+						<div class="modal-dialog" style="width:600px;">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
@@ -193,7 +191,7 @@
 					<!-- /.modal -->
 					<div class="modal fade" id="myModal-2" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
+						<div class="modal-dialog" style="width:600px;">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
@@ -222,7 +220,6 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-lg-2"></div>
 	</div>
 	<script language="JavaScript">
 		$(function() {
@@ -235,6 +232,7 @@
 				$(''+model+' .modal-body').html('亲，你把宝贵的'+count+'票分别投给了'+'<strong>'+candidatersName.join()+'</strong>'+'你还有'+ (totalNum - count)+ '票没有投，点击确定按钮直接投票，点击取消按钮可以返回继续投票');
 				$(''+model+'').modal();
 			};
+			alert("使用   360浏览器   或   搜狗浏览器    的同学或老师，请切换为高速模式浏览以获得更好的体验");
 			$('.caption .btn').click(function() {
 				var name='';
 				name=$(this).parent().parent().find('h3').data('name').toString();

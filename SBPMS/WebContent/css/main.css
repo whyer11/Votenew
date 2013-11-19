@@ -41,6 +41,11 @@ body {
 	display:block;
 	margin:0 0 20px;
 }
+.IE8yousonofbitch
+{
+	filter：alpha(opacity=80);
+	background:#fff;
+}
 /** begin ---ui-form.css---*/
 /*
  * @name: ui-form

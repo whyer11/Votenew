@@ -9,16 +9,13 @@ import java.sql.Date;
 public class VoteInfp implements java.io.Serializable {
 
 	// Fields
-	private  Integer   vote_time;
-	
+	private  Date   vote_time;
 
-	
-
-	public Integer getVote_time() {
+	public Date getVote_time() {
 		return vote_time;
 	}
 
-	public void setVote_time(Integer vote_time) {
+	public void setVote_time(Date vote_time) {
 		this.vote_time = vote_time;
 	}
 

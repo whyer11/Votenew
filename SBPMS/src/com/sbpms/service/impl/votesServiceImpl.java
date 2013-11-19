@@ -1,5 +1,6 @@
 package com.sbpms.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.sbpms.bean.PersonInfo;
@@ -35,7 +36,7 @@ public class votesServiceImpl  implements  votesService {
 	}
 
 	@Override
-	public boolean validatee(int date,String test) {
+	public boolean validatee(Date date,String test) {
 		return  voteinfoDao.select(date,test);
 	}
 
@@ -43,8 +44,8 @@ public class votesServiceImpl  implements  votesService {
 	
 
 	@Override
-	public boolean validateByIp(int Date, String clientIp) {
-		return  voteinfoDao.selectByIp(Date,clientIp);
+	public boolean validateByIp(Date date, String clientIp) {
+		return  voteinfoDao.selectByIp(date,clientIp);
 	}
 
 }

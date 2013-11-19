@@ -149,12 +149,13 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String  vote(){
-		Integer Date = new Date().getDay(); 
+		 Date dateU=new Date();
+	     java.sql.Date date=new java.sql.Date(dateU.getTime());
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
 		voteInfp.setVoterPhone(this.studentPhone);
 		voteInfp.setvoter_xuehao(this.studentID);
-		voteInfp.setVote_time(Date);
+		voteInfp.setVote_time(date);
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	
@@ -163,9 +164,10 @@ public class candidate_display_action extends ActionSupport  {
 		return "success";
 	}
 	public String  voteByIp(){
-		Integer Date = new Date().getDay(); 
-		System.out.println(Date);
-		if(VotesService.validateByIp(Date,this.clientIp) == true){
+		 Date dateU=new Date();
+	     java.sql.Date date=new java.sql.Date(dateU.getTime());
+		System.out.println(date);
+		if(VotesService.validateByIp(date,this.clientIp) == true){
 			this.hasVote=false;
 		}
 		else{
@@ -180,7 +182,7 @@ public class candidate_display_action extends ActionSupport  {
 		voteInfp.setVoterPhone(this.studentPhone);
 	    }
 		voteInfp.setVoter_ip(ClientIp);
-	    voteInfp.setVote_time(Date);
+	    voteInfp.setVote_time(date);
 	    if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
 	    }
@@ -192,9 +194,10 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String validateByIp(){
-		Integer Date = new Date().getDay(); 
-		System.out.println(Date);
-		if(VotesService.validateByIp( Date,this.clientIp) == true){
+		 Date dateU=new Date();
+	     java.sql.Date date=new java.sql.Date(dateU.getTime());
+		System.out.println(date);
+		if(VotesService.validateByIp( date,this.clientIp) == true){
 			this.hasVote=false;
 		}
 		else{
@@ -203,8 +206,10 @@ public class candidate_display_action extends ActionSupport  {
 			return "success";
 	}
 	public String   validatee(){
-		Integer Date = new Date().getDay(); 
-		if(VotesService.validatee(Date,this.voter_xuehao) == true){
+		 Date dateU=new Date();
+	     java.sql.Date date=new java.sql.Date(dateU.getTime());
+	     System.out.print(date);
+		if(VotesService.validatee(date,this.voter_xuehao) == true){
 			
 			this.hasVote=false;
 		}

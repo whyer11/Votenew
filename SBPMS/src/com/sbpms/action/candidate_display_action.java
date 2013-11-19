@@ -149,13 +149,11 @@ public class candidate_display_action extends ActionSupport  {
 	}
 	
 	public  String  vote(){
-		 Date dateU=new Date();
-	     java.sql.Date date=new java.sql.Date(dateU.getTime());
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
 		voteInfp.setVoterPhone(this.studentPhone);
 		voteInfp.setvoter_xuehao(this.studentID);
-		voteInfp.setVote_time(date);
+		voteInfp.setVote_time(this.getCurrentDay());
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	
@@ -164,10 +162,7 @@ public class candidate_display_action extends ActionSupport  {
 		return "success";
 	}
 	public String  voteByIp(){
-		 Date dateU=new Date();
-	     java.sql.Date date=new java.sql.Date(dateU.getTime());
-		System.out.println(date);
-		if(VotesService.validateByIp(date,this.clientIp) == true){
+		if(VotesService.validateByIp(this.getCurrentDay(),this.clientIp) == true){
 			this.hasVote=false;
 		}
 		else{
@@ -182,7 +177,7 @@ public class candidate_display_action extends ActionSupport  {
 		voteInfp.setVoterPhone(this.studentPhone);
 	    }
 		voteInfp.setVoter_ip(ClientIp);
-	    voteInfp.setVote_time(date);
+	    voteInfp.setVote_time(this.getCurrentDay());
 	    if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
 	    }
@@ -197,7 +192,7 @@ public class candidate_display_action extends ActionSupport  {
 		 Date dateU=new Date();
 	     java.sql.Date date=new java.sql.Date(dateU.getTime());
 		System.out.println(date);
-		if(VotesService.validateByIp( date,this.clientIp) == true){
+		if(VotesService.validateByIp( this.getCurrentDay(),this.clientIp) == true){
 			this.hasVote=false;
 		}
 		else{
@@ -206,10 +201,7 @@ public class candidate_display_action extends ActionSupport  {
 			return "success";
 	}
 	public String   validatee(){
-		 Date dateU=new Date();
-	     java.sql.Date date=new java.sql.Date(dateU.getTime());
-	     System.out.print(date);
-		if(VotesService.validatee(date,this.voter_xuehao) == true){
+		if(VotesService.validatee(this.getCurrentDay(),this.voter_xuehao) == true){
 			
 			this.hasVote=false;
 		}
@@ -217,6 +209,16 @@ public class candidate_display_action extends ActionSupport  {
 		this.hasVote=true;
 		}
 		return "success";
+	}
+	
+	public  String  getCurrentDay(){
+		 Date dateU=new Date();
+	     java.sql.Date date=new java.sql.Date(dateU.getTime());
+	     String date_str=String.valueOf(date);
+	     String dd = date_str.substring(8,10);
+         System.out.println(dd);
+         return  dd;
+		
 	}
 	
 	

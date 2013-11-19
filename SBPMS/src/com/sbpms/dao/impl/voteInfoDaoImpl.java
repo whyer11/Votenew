@@ -42,27 +42,18 @@ public class voteInfoDaoImpl extends HibernateDaoSupport  implements voteInfoDao
 	}
 
 	@Override
-	public boolean select(Date date,String  voter_xuehao ) {
-		  java.sql.Date date2=new java.sql.Date(date.getTime());
-		long  date1=date.getTime();
-		System.out.print(date.getTime());
-		
-		date.getTime();
-		String   sqlString="from  VoteInfp  where voter_xuehao="+voter_xuehao;  //+" and vote_time="+date.toString();
-		System.out.print(sqlString);
-		System.out.print(voter_xuehao);
-		System.out.print(date);
+	public boolean select(String date,String  voter_xuehao ) {
+		String   sqlString="from  VoteInfp  where voter_xuehao="+voter_xuehao +" and vote_time="+date;
 		 List<VoteInfp>  votesList=this.getHibernateTemplate().find(sqlString);
-		 System.out.println(votesList.get(15).getVote_time());
-		 if(votesList.size() != 0 && votesList.get(15).getVote_time().equals(date)){
+		 if(votesList.size() != 0){
 			 return  false;
 		 }
 		return true;
 	}
 
 	@Override
-	public boolean selectByIp(Date date,String clientIp) {
-		String   sqlString="from  VoteInfp  where voter_ip=? and vote_time="+date.toString();
+	public boolean selectByIp(String date,String clientIp) {
+		String   sqlString="from  VoteInfp  where voter_ip=? and vote_time="+date;
 		System.out.print(sqlString);
 		 List<VoteInfp>  votesList=this.getHibernateTemplate().find(sqlString, clientIp);
 		 if(votesList.size() != 0){

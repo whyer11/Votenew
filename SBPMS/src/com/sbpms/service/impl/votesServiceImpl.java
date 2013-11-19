@@ -36,7 +36,7 @@ public class votesServiceImpl  implements  votesService {
 	}
 
 	@Override
-	public boolean validatee(Date date,String test) {
+	public boolean validatee(String date,String test) {
 		return  voteinfoDao.select(date,test);
 	}
 
@@ -44,7 +44,7 @@ public class votesServiceImpl  implements  votesService {
 	
 
 	@Override
-	public boolean validateByIp(Date date, String clientIp) {
+	public boolean validateByIp(String date, String clientIp) {
 		return  voteinfoDao.selectByIp(date,clientIp);
 	}
 

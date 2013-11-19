@@ -9,6 +9,6 @@ public interface votesService {
 
 	public  int   countVotes(PersonInfo  personInfo);
 	public  void  inserte(VoteInfp voteInfp);
-	public boolean validatee(Date date, String test);
-    public boolean validateByIp(Date date, String clientIp);
+	public boolean validatee(String date, String test);
+    public boolean validateByIp(String currentDay, String clientIp);
 }

@@ -2,13 +2,25 @@ package com.sbpms.action;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sbpms.bean.PersonInfo;
 import com.sbpms.bean.VoteInfp;
 import com.sbpms.service.candidate_display_service;
 import com.sbpms.service.votesService;
-public class candidate_display_action extends ActionSupport  {
+import com.sbpms.util.UdpGetClientMacAddr;
+public class candidate_display_action extends ActionSupport {
+	private HttpServletRequest request;
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+	
 	private  String   clientIp;
 	public String getClientIp() {
 		return clientIp;
@@ -157,7 +169,8 @@ public class candidate_display_action extends ActionSupport  {
 		
 		return "success";
 	}
-	public String  voteByIp(){
+	public String  voteByIp() throws Exception{
+		String  clientMac=this.getClientMac();
 		if(VotesService.validateByIp(this.getCurrentDay(),this.clientIp) == true){
 			this.hasVote=false;
 		}
@@ -218,6 +231,23 @@ public class candidate_display_action extends ActionSupport  {
          System.out.println(dd);
          return  dd;
 		
+	}
+	
+	public  String  getClientMac() throws Exception{
+		String smac = ""; 
+		String sip = request.getHeader("x-forwarded-for"); 
+		if(sip == null || sip.length() == 0 || "unknown".equalsIgnoreCase(sip)) { 
+		sip = request.getHeader("Proxy-Client-IP"); 
+		} 
+		if(sip == null || sip.length() == 0 || "unknown".equalsIgnoreCase(sip)) { 
+		sip = request.getHeader("WL-Proxy-Client-IP"); 
+		} 
+		if(sip == null || sip.length() == 0 || "unknown".equalsIgnoreCase(sip)) { 
+		sip = request.getRemoteAddr(); 
+		} 
+		UdpGetClientMacAddr umac = new UdpGetClientMacAddr(sip); 
+		smac = umac.GetRemoteMacAddr();
+		return  smac;
 	}
 	
 	

@@ -10,9 +10,6 @@ public class VoteInfp implements java.io.Serializable {
 
 	// Fields
 	private  String  vote_time;
-
-	
-
 	public String getVote_time() {
 		return vote_time;
 	}

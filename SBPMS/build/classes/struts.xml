@@ -33,12 +33,9 @@
 			</result>
     </action>
     
-    
     <action  name="vote"  class="candidate_display_action" method="vote">
          <result name="success">/WEB-PAGE/Login.jsp</result>
     </action>
-
-    
     
     <action name="logout" class="ManageUserAction" method="logout">
       <result name="success">/WEB-PAGE/Login.jsp</result>

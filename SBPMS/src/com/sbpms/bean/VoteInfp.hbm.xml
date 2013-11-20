@@ -19,7 +19,7 @@
         <property name="voteeId" type="java.lang.Integer">
             <column name="votee_id" />
         </property>
-         <property name="voter_ip" type="java.lang.Integer">
+         <property name="voter_ip" type="java.lang.String">
             <column name="voter_ip" />
         </property>
          <property name="vote_time" type="java.lang.String">

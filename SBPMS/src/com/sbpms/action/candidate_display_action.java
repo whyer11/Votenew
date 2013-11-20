@@ -1,16 +1,13 @@
 package com.sbpms.action;
-
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sbpms.bean.PersonInfo;
 import com.sbpms.bean.VoteInfp;
 import com.sbpms.service.candidate_display_service;
 import com.sbpms.service.votesService;
-
 public class candidate_display_action extends ActionSupport  {
 	private  String   clientIp;
 	public String getClientIp() {
@@ -19,7 +16,6 @@ public class candidate_display_action extends ActionSupport  {
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
 	}
-
 	private  String  candidaters;
 	private  String   studentID;
 	public String getStudentID() {
@@ -169,18 +165,21 @@ public class candidate_display_action extends ActionSupport  {
 			this.hasVote=true;
 			return  "success";
 			}
-		
 		String  ClientIp=this.getClientIp();
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
+	    /*
 	    if(this.studentPhone != null){
 		voteInfp.setVoterPhone(this.studentPhone);
 	    }
+	    */
 		voteInfp.setVoter_ip(ClientIp);
 	    voteInfp.setVote_time(this.getCurrentDay());
-	    if(this.studentID != null){
+	 /*   if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
 	    }
+	    
+	    */
 		for(int i=0; i < Candidaters.length;i++){
 			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	

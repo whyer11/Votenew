@@ -34,7 +34,7 @@
     </action>
     
     <action  name="vote"  class="candidate_display_action" method="vote">
-         <result name="success">/WEB-PAGE/Login.jsp</result>
+         <result name="success">/WEB-PAGE/mid_jump.jsp</result>
     </action>
     
     <action name="logout" class="ManageUserAction" method="logout">

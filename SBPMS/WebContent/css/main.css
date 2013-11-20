@@ -30,6 +30,12 @@ body {
 	line-height: 34px;
 	cursor:pointer;
 }
+.logo{
+	background-image:url("../images/Logo.png");
+	 width:372px;
+	 height:38px;
+	 margin-bottom:20px;
+}
 /** begin ---ui-form.css---*/
 /*
  * @name: ui-form

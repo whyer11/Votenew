@@ -218,7 +218,7 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 			return "success";
 	}
 	public String   validatee(){
-		if(VotesService.validatee(this.getCurrentDay(),this.voter_xuehao) == true){
+		if(VotesService.validatee(this.getCurrentDay(),this.voter_xuehao) == true && VotesService.validateByIp( this.getCurrentDay(),this.clientIp) == true){
 			
 			this.hasVote=false;
 		}

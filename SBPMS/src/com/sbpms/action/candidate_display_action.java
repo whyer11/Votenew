@@ -3,9 +3,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sbpms.bean.PersonInfo;
@@ -164,9 +167,11 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 		
 	}
 	
-	public  String  vote(){
+	public  String  vote() throws Exception{
+		String  clientMac=this.getClientMac();
 		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
+	    voteInfp.setVoter_ip(clientMac);
 		voteInfp.setVoterPhone(this.studentPhone);
 		voteInfp.setvoter_xuehao(this.studentID);
 		voteInfp.setVote_time(this.getCurrentDay());

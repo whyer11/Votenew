@@ -31,6 +31,10 @@
          <property name="affiliation" type="java.lang.String">
             <column name="affiliation" />
         </property>
+         <property name="link" type="java.lang.String">
+            <column name="link" />
+        </property>
+        
         
     </class>
 </hibernate-mapping>

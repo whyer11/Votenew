@@ -224,7 +224,7 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 	}
 	public String   validatee() throws Exception{
 		String  clientMac=this.getClientMac();
-		if(VotesService.validatee(this.getCurrentDay(),this.voter_xuehao) == true && VotesService.validateByIp( this.getCurrentDay(),this.clientIp) == true){
+		if(VotesService.validatee(this.getCurrentDay(),this.voter_xuehao) == true && VotesService.validateByIp( this.getCurrentDay(),clientMac) == true){
 			
 			this.hasVote=false;
 		}

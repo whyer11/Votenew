@@ -36,23 +36,6 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
 	}
-	
-	private  String test;
-	public String getTest() {
-		return test;
-	}
-	public void setTest(String test) {
-		this.test = test;
-	}
-
-	private  String[]  candidaters_teachers;
-	public String[] getCandidaters_teachers() {
-		return candidaters_teachers;
-	}
-	public void setCandidaters_teachers(String[] candidaters_teachers) {
-		this.candidaters_teachers = candidaters_teachers;
-	}
-
 	private  String  candidaters;
 	private  String   studentID;
 	public String getStudentID() {
@@ -203,25 +186,20 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 			this.hasVote=true;
 			return  "success";
 			}
-	
-		String[] Can=this.getCandidaters_teachers();
-		/*	
+		String Can=this.getCandidaters();
 	    String Candidaters[]=this.getCandidaters().split(", ");
-	    */
-	    /*
+	  
 	    if(this.studentPhone != null){
 		voteInfp.setVoterPhone(this.studentPhone);
 	    }
-	    */
 		voteInfp.setVoter_ip(clientMac);
 	    voteInfp.setVote_time(this.getCurrentDay());
 	 /*   if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
 	    }
-	    
 	    */
-		for(int i=0; i < candidaters_teachers.length;i++){
-			voteInfp.setVoteeId(Integer.parseInt(candidaters_teachers[i]));
+		for(int i=0; i < Candidaters.length;i++){
+			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
 			VotesService.inserte(voteInfp);	
 		}
 		return  "success";

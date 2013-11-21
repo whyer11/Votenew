@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -12,15 +13,22 @@ import com.sbpms.bean.VoteInfp;
 import com.sbpms.service.candidate_display_service;
 import com.sbpms.service.votesService;
 import com.sbpms.util.UdpGetClientMacAddr;
-public class candidate_display_action extends ActionSupport {
-	private HttpServletRequest request;
-	public HttpServletRequest getRequest() {
-		return request;
+public class candidate_display_action extends ActionSupport implements ServletRequestAware  {
+	  private HttpServletRequest request;
+	  
+	public void setServletRequest(HttpServletRequest request){
+		 
+		        this.request = request;
+		 
+		       }
+
+	 ActionContext context=ActionContext.getContext();  
+	public ActionContext getContext() {
+		return context;
 	}
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
+	public void setContext(ActionContext context) {
+		this.context = context;
 	}
-	
 	private  String   clientIp;
 	public String getClientIp() {
 		return clientIp;
@@ -28,6 +36,15 @@ public class candidate_display_action extends ActionSupport {
 	public void setClientIp(String clientIp) {
 		this.clientIp = clientIp;
 	}
+	
+	private  String[]  candidaters_teachers;
+	public String[] getCandidaters_teachers() {
+		return candidaters_teachers;
+	}
+	public void setCandidaters_teachers(String[] candidaters_teachers) {
+		this.candidaters_teachers = candidaters_teachers;
+	}
+
 	private  String  candidaters;
 	private  String   studentID;
 	public String getStudentID() {
@@ -171,30 +188,32 @@ public class candidate_display_action extends ActionSupport {
 	}
 	public String  voteByIp() throws Exception{
 		String  clientMac=this.getClientMac();
-		if(VotesService.validateByIp(this.getCurrentDay(),this.clientIp) == true){
+		if(VotesService.validateByIp(this.getCurrentDay(),clientMac) == true){
 			this.hasVote=false;
 		}
 		else{
 			this.hasVote=true;
 			return  "success";
 			}
-		String  ClientIp=this.getClientIp();
-		String Can=this.getCandidaters();
+	
+		String[] Can=this.getCandidaters_teachers();
+		/*	
 	    String Candidaters[]=this.getCandidaters().split(", ");
+	    */
 	    /*
 	    if(this.studentPhone != null){
 		voteInfp.setVoterPhone(this.studentPhone);
 	    }
 	    */
-		voteInfp.setVoter_ip(ClientIp);
+		voteInfp.setVoter_ip(clientMac);
 	    voteInfp.setVote_time(this.getCurrentDay());
 	 /*   if(this.studentID != null){
 		voteInfp.setvoter_xuehao(this.studentID);
 	    }
 	    
 	    */
-		for(int i=0; i < Candidaters.length;i++){
-			voteInfp.setVoteeId(Integer.parseInt(Candidaters[i]));
+		for(int i=0; i < candidaters_teachers.length;i++){
+			voteInfp.setVoteeId(Integer.parseInt(candidaters_teachers[i]));
 			VotesService.inserte(voteInfp);	
 		}
 		return  "success";
@@ -233,9 +252,9 @@ public class candidate_display_action extends ActionSupport {
 		
 	}
 	
-	public  String  getClientMac() throws Exception{
+	public  String  getClientMac() throws Exception {
 		String smac = ""; 
-		String sip = request.getHeader("x-forwarded-for"); 
+		String  sip=this.getIpAddr(request);
 		if(sip == null || sip.length() == 0 || "unknown".equalsIgnoreCase(sip)) { 
 		sip = request.getHeader("Proxy-Client-IP"); 
 		} 
@@ -249,6 +268,21 @@ public class candidate_display_action extends ActionSupport {
 		smac = umac.GetRemoteMacAddr();
 		return  smac;
 	}
+	
+	public String getIpAddr(HttpServletRequest request) { 
+		String ip=null;
+	     //  String ip = request.getHeader("x-forwarded-for"); 
+	       if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+	           ip = request.getHeader("Proxy-Client-IP"); 
+	       } 
+	       if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+	           ip = request.getHeader("WL-Proxy-Client-IP"); 
+	       } 
+	       if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+	           ip = request.getRemoteAddr(); 
+	       } 
+	       return ip; 
+	   } 
 	
 	
 }

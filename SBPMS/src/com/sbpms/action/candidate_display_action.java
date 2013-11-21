@@ -37,6 +37,14 @@ public class candidate_display_action extends ActionSupport implements ServletRe
 		this.clientIp = clientIp;
 	}
 	
+	private  String test;
+	public String getTest() {
+		return test;
+	}
+	public void setTest(String test) {
+		this.test = test;
+	}
+
 	private  String[]  candidaters_teachers;
 	public String[] getCandidaters_teachers() {
 		return candidaters_teachers;
